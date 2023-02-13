@@ -25,7 +25,7 @@ public class RequestsService {
 			r.setBank_id((String) payload.get("bankId"));
 			r.setRequest_date(new Date());
 			r.setRequest_id(masterId);
-			r.setRequest_item_id(i+1);
+			r.setRequest_item_id(i + 1);
 			ArrayList<Map<String, Object>> req = (ArrayList<Map<String, Object>>) payload.get("requests");
 			r.setRequest_type((String) req.get(i).get("type"));
 			r.setRequest_action((String) req.get(i).get("action"));
@@ -46,5 +46,9 @@ public class RequestsService {
 			r.setFinal_comments(null);
 			repo.save(r);
 		}
+	}
+
+	public void checkDuplicateRequest(Map<String, Object> req, String bankId) {
+
 	}
 }
