@@ -29,7 +29,7 @@ public class RequestsService {
 		Integer masterId = repo.getCount();
 		ArrayList<Map<String, Object>> req = (ArrayList<Map<String, Object>>) payload.get("requests");
 		//findDM()
-		//findAdminsifApplicable()
+		//findAdminsifApplicablefromconfig()
 		for (int i = 0; i < count; i++) {
 			Requests r = new Requests();
 			r.setBank_id((String) payload.get("bankId"));
@@ -48,18 +48,22 @@ public class RequestsService {
 			r.setDomain_manager_approval_status("PENDING");
 			r.setDomain_manager_approved_date(null);
 			r.setDomain_manager_comments(null);
-			r.setSas_admin_email(null);
-			r.setSas_admin_approval_status("PENDING");
-			r.setSas_admin_approved_date(null);
-			r.setSas_admin_comments(null);
-			r.setNas_admin_email(null);
-			r.setNas_admin_approval_status("PENDING");
-			r.setNas_admin_approved_date(null);
-			r.setNas_admin_comments(null);
-			r.setBitbucket_admin_email(null);
-			r.setBitbucket_admin_approval_status("PENDING");
-			r.setBitbucket_admin_approved_date(null);
-			r.setBitbucket_admin_comments(null);
+			switch((String)req.get(i).get("type")) {				
+			case "Group":
+				r.setNas_admin_email("NAS MAIL");
+				r.setNas_admin_approval_status("PENDING");
+				r.setNas_admin_approved_date(null);
+				r.setNas_admin_comments(null);
+				r.setBitbucket_admin_email("BB MAIL");
+				r.setBitbucket_admin_approval_status("PENDING");
+				r.setBitbucket_admin_approved_date(null);
+				r.setBitbucket_admin_comments(null);
+			case "SAS Viya":
+				r.setSas_admin_email("SAS MAIL");
+				r.setSas_admin_approval_status("PENDING");
+				r.setSas_admin_approved_date(null);
+				r.setSas_admin_comments(null);
+			}
 			repo.save(r);
 		}
 		//mailLM()
