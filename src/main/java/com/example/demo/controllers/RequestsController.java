@@ -17,6 +17,6 @@ public class RequestsController {
 	
 	@PostMapping("/test")
 	public void submitRequest(@RequestBody Map<String, Object> payload) {
-		reqService.test(payload);
+		reqService.submitNewRequest(payload);
 	}
 }
