@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +12,8 @@ import com.example.demo.repository.ActiveAccessesRepository;
 public class ActiveAccessesService {
 	@Autowired
 	ActiveAccessesRepository repo;
-	
-	public ActiveAccesses findActiveAccesses(String bankId) {
+
+	public List<ActiveAccesses> findActiveAccesses(String bankId) {
 		return repo.findActiveAccesses(bankId);
 	}
 }
