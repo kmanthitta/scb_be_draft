@@ -25,8 +25,47 @@ public class RequestsService {
 	@Autowired
 	ActiveAccessesService activeAccSer;
 
-	@SuppressWarnings("unchecked")
 	public void submitNewRequest(Map<String, Object> payload) {
+		generateRequest(payload);
+	}
+	
+	public void modifyUser(Map<String, Object> payload) {
+		generateRequest(payload);
+	}
+
+	public void deleteUser(String bankId) {
+		List<ActiveAccesses> accesses = activeAccSer.findActiveAccesses(bankId);
+		buildRequestForDelete(accesses);
+	}
+
+	public void buildRequestForDelete(List<ActiveAccesses> acc) {
+		Integer count = acc.size();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bankId", acc.get(0).getBank_id());
+		map.put("name", "just another name");
+		map.put("LMemail", acc.get(0).getLm_email());
+		map.put("DMemail", acc.get(0).getDm_email());
+		ArrayList<Map<String, Object>> requests = new ArrayList<Map<String,Object>>();
+		requests.add(buildSingleRequest("Role", acc.get(0).getRole(), "Delete"));
+		requests.add(buildSingleRequest("Location", acc.get(0).getLocation(), "Delete"));
+		requests.add(buildSingleRequest("SAS Viya", acc.get(0).getSas_viya(), "Delete"));
+		for (int i = 0; i < count; i++) {
+			requests.add(buildSingleRequest("Group", acc.get(i).getGroup_name(), "Delete"));
+		}
+		map.put("requests", requests);
+		generateRequest(map);
+	}
+
+	public Map<String, Object> buildSingleRequest(String type, String value, String action) {
+		HashMap<String, Object> reqMap = new HashMap<String, Object>();
+		reqMap.put("type", type);
+		reqMap.put("action", action);
+		reqMap.put("value", value);
+		return reqMap;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void generateRequest(Map<String, Object> payload) {
 		Integer count = ((List<Map<String, Object>>) payload.get("requests")).size();
 		Integer masterId = repo.getCount();
 		ArrayList<Map<String, Object>> req = (ArrayList<Map<String, Object>>) payload.get("requests");
@@ -71,38 +110,6 @@ public class RequestsService {
 			repo.save(r);
 		}
 		// mailLM()
-	}
-
-	public void deleteUser(String bankId) {
-		List<ActiveAccesses> accesses = activeAccSer.findActiveAccesses(bankId);
-		buildRequestForDelete(accesses);
-	}
-
-	public void buildRequestForDelete(List<ActiveAccesses> acc) {
-		Integer count = acc.size();
-		Integer masterId = repo.getCount();
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("bankId", acc.get(0).getBank_id());
-		map.put("name", "just another name");
-		map.put("LMEMail", acc.get(0).getLm_email());
-		map.put("DMEmail", acc.get(0).getDm_email());
-		ArrayList<Map<String, Object>> requests = new ArrayList<Map<String,Object>>();
-		requests.add(buildSingleRequest("Role", acc.get(0).getRole(), "Delete"));
-		requests.add(buildSingleRequest("Location", acc.get(0).getLocation(), "Delete"));
-		requests.add(buildSingleRequest("SAS Viya", acc.get(0).getSas_viya(), "Delete"));
-		for (int i = 0; i < count; i++) {
-			requests.add(buildSingleRequest("Group", acc.get(i).getGroup_name(), "Delete"));
-		}
-		map.put("requests", requests);
-		System.out.println(map);
-	}
-
-	public Map<String, Object> buildSingleRequest(String type, String value, String action) {
-		HashMap<String, Object> reqMap = new HashMap<String, Object>();
-		reqMap.put("type", type);
-		reqMap.put("action", action);
-		reqMap.put("value", value);
-		return reqMap;
 	}
 
 }

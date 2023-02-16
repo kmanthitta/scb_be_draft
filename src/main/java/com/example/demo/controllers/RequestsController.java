@@ -28,6 +28,11 @@ public class RequestsController {
 		reqService.submitNewRequest(payload);
 	}
 	
+	@PostMapping("/modifyUser")
+	public void modifyUser(@RequestBody Map<String, Object> payload) {
+		reqService.modifyUser(payload);
+	}
+	
 	@GetMapping("/getActiveAccesses")
 	public List<ActiveAccesses> getActiveAccesses(@RequestParam String bankId){
 		return accService.findActiveAccesses(bankId);
