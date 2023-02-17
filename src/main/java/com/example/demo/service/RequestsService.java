@@ -28,7 +28,7 @@ public class RequestsService {
 	public void submitNewRequest(Map<String, Object> payload) {
 		generateRequest(payload);
 	}
-	
+
 	public void modifyUser(Map<String, Object> payload) {
 		generateRequest(payload);
 	}
@@ -45,7 +45,7 @@ public class RequestsService {
 		map.put("name", "just another name");
 		map.put("LMemail", acc.get(0).getLm_email());
 		map.put("DMemail", acc.get(0).getDm_email());
-		ArrayList<Map<String, Object>> requests = new ArrayList<Map<String,Object>>();
+		ArrayList<Map<String, Object>> requests = new ArrayList<Map<String, Object>>();
 		requests.add(buildSingleRequest("Role", acc.get(0).getRole(), "Delete"));
 		requests.add(buildSingleRequest("Location", acc.get(0).getLocation(), "Delete"));
 		requests.add(buildSingleRequest("SAS Viya", acc.get(0).getSas_viya(), "Delete"));
@@ -63,7 +63,7 @@ public class RequestsService {
 		reqMap.put("value", value);
 		return reqMap;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void generateRequest(Map<String, Object> payload) {
 		Integer count = ((List<Map<String, Object>>) payload.get("requests")).size();
@@ -110,6 +110,21 @@ public class RequestsService {
 			repo.save(r);
 		}
 		// mailLM()
+	}
+
+	public void getRequests(String email, String category) {
+		String approverEmailFieldName = category.concat("_email");
+		String approverStatusFieldName = category.concat("_approval_status");
+		Requests obj = repo.findOpenRequestsForApprover(email, approverEmailFieldName, approverStatusFieldName);
+		// convert obj to json and remove unwanted fields
+	}
+
+	public void getOpenRequests(String bankId) {
+		Requests obj = repo.findOpenRequests(bankId);
+	}
+	
+	public void getClosedRequests(String bankId) {
+		Requests obj = repo.findClosedRequests(bankId);
 	}
 
 }

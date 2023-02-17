@@ -42,5 +42,10 @@ public class RequestsController {
 	public void deleteUser(@RequestParam String bankId) {
 		reqService.deleteUser(bankId);
 	}
+	
+	@GetMapping("/getRequests")
+	public void getRequests(@RequestParam String email, @RequestParam String category) {
+		reqService.getRequests(email, category);
+	}
 
 }
