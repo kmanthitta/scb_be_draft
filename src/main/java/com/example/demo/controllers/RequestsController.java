@@ -58,4 +58,9 @@ public class RequestsController {
 	public List<Requests> getClosedRequests(@RequestParam String bankId) {
 		return reqService.getClosedRequests(bankId);
 	}
+
+	@PostMapping("/approveRequest")
+	public void approveRequest(@RequestBody Map<String, Object> payload) {
+		reqService.approveRequest(payload);
+	}
 }

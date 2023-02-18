@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -146,4 +147,68 @@ public class RequestsService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public void approveRequest(Map<String, Object> payload) {
+		String type = (String) payload.get("type");
+		String email = (String) payload.get("email");
+		ArrayList<Map<String, Object>> requestIDs = (ArrayList<Map<String, Object>>) payload.get("requestIDs");
+		switch (type) {
+		case "LM":
+			for (Map<String, Object> req : requestIDs) {
+				Optional<Requests> r = repo.findById((Integer) req.get("id"));
+				r.get().setLine_manager_comments((String) req.get("comments"));
+				r.get().setLine_manager_approval_status((String) req.get("action"));
+				r.get().setLine_manager_approved_date(new Date());
+				repo.save(r.get());
+			}
+			//send mail to dm
+			break;
+		case "DM":
+			for (Map<String, Object> req : requestIDs) {
+				Optional<Requests> r = repo.findById((Integer) req.get("id"));
+				r.get().setDomain_manager_comments((String) req.get("comments"));
+				r.get().setDomain_manager_approval_status((String) req.get("action"));
+				r.get().setDomain_manager_approved_date(new Date());
+				repo.save(r.get());
+			}
+			//send mail to admins
+			break;
+		case "Admin":
+			// check which admin through email
+			String admin = "SAS";
+			switch (admin) {
+			case "SAS":
+				for (Map<String, Object> req : requestIDs) {
+					Optional<Requests> r = repo.findById((Integer) req.get("id"));
+					r.get().setSas_admin_comments((String) req.get("comments"));
+					r.get().setSas_admin_approval_status((String) req.get("action"));
+					r.get().setSas_admin_approved_date(new Date());
+					repo.save(r.get());
+				}
+				//send mail??
+				break;
+			case "NAS":
+				for (Map<String, Object> req : requestIDs) {
+					Optional<Requests> r = repo.findById((Integer) req.get("id"));
+					r.get().setNas_admin_comments((String) req.get("comments"));
+					r.get().setNas_admin_approval_status((String) req.get("action"));
+					r.get().setNas_admin_approved_date(new Date());
+					repo.save(r.get());
+				}
+				//send mail??
+				break;
+			case "BB":
+				for (Map<String, Object> req : requestIDs) {
+					Optional<Requests> r = repo.findById((Integer) req.get("id"));
+					r.get().setBitbucket_admin_comments((String) req.get("comments"));
+					r.get().setBitbucket_admin_approval_status((String) req.get("action"));
+					r.get().setBitbucket_admin_approved_date(new Date());
+					repo.save(r.get());
+				}
+				//send mail??
+				break;
+			}
+			break;
+		}
+	}
 }
