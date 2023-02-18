@@ -67,7 +67,7 @@ public class RequestsService {
 	@SuppressWarnings("unchecked")
 	public void generateRequest(Map<String, Object> payload) {
 		Integer count = ((List<Map<String, Object>>) payload.get("requests")).size();
-		Integer masterId = repo.getCount();
+		Integer masterId = getUserReqCount((String) payload.get("bankId")) + 1;
 		ArrayList<Map<String, Object>> req = (ArrayList<Map<String, Object>>) payload.get("requests");
 		// findDM()
 		// findAdminsifApplicablefromconfig()
@@ -112,19 +112,38 @@ public class RequestsService {
 		// mailLM()
 	}
 
-	public void getRequests(String email, String category) {
-		String approverEmailFieldName = category.concat("_email");
-		String approverStatusFieldName = category.concat("_approval_status");
-		Requests obj = repo.findOpenRequestsForApprover(email, approverEmailFieldName, approverStatusFieldName);
-		// convert obj to json and remove unwanted fields
+	public List<Requests> getRequests(String email, String category) {
+		List<Requests> obj = new ArrayList<Requests>();
+		switch (category) {
+		case "lineManager":
+			obj = repo.findOpenRequestsForLM(email);
+			break;
+		case "domainManager":
+			obj = repo.findOpenRequestsForDM(email);
+			break;
+		case "admin":
+			obj = repo.findOpenRequestsForAdmin(email);
+			break;
+		}
+		System.out.println(obj);
+		return obj;
 	}
 
-	public void getOpenRequests(String bankId) {
-		Requests obj = repo.findOpenRequests(bankId);
+	public List<Requests> getOpenRequests(String bankId) {
+		return repo.findOpenRequests(bankId);
 	}
-	
-	public void getClosedRequests(String bankId) {
-		Requests obj = repo.findClosedRequests(bankId);
+
+	public List<Requests> getClosedRequests(String bankId) {
+		return repo.findClosedRequests(bankId);
+	}
+
+	public Integer getUserReqCount(String bankId) {
+		Integer t = repo.getUserReqCount(bankId);
+		if (t == null) {
+			return 0;
+		} else {
+			return t;
+		}
 	}
 
 }

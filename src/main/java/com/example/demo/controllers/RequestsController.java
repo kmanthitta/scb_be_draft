@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.ActiveAccesses;
+import com.example.demo.entity.Requests;
 import com.example.demo.service.ActiveAccessesService;
 import com.example.demo.service.RequestsService;
 
@@ -19,7 +20,7 @@ public class RequestsController {
 
 	@Autowired
 	RequestsService reqService;
-	
+
 	@Autowired
 	ActiveAccessesService accService;
 
@@ -27,25 +28,34 @@ public class RequestsController {
 	public void submitNewRequest(@RequestBody Map<String, Object> payload) {
 		reqService.submitNewRequest(payload);
 	}
-	
+
 	@PostMapping("/modifyUser")
 	public void modifyUser(@RequestBody Map<String, Object> payload) {
 		reqService.modifyUser(payload);
 	}
-	
+
 	@GetMapping("/getActiveAccesses")
-	public List<ActiveAccesses> getActiveAccesses(@RequestParam String bankId){
+	public List<ActiveAccesses> getActiveAccesses(@RequestParam String bankId) {
 		return accService.findActiveAccesses(bankId);
 	}
-	
+
 	@PostMapping("/deleteUser")
 	public void deleteUser(@RequestParam String bankId) {
 		reqService.deleteUser(bankId);
 	}
-	
+
 	@GetMapping("/getRequests")
-	public void getRequests(@RequestParam String email, @RequestParam String category) {
-		reqService.getRequests(email, category);
+	public List<Requests> getRequests(@RequestParam String email, @RequestParam String category) {
+		return reqService.getRequests(email, category);
 	}
 
+	@GetMapping("/getOpenRequests")
+	public List<Requests> getOpenRequests(@RequestParam String bankId) {
+		return reqService.getOpenRequests(bankId);
+	}
+
+	@GetMapping("/getClosedRequests")
+	public List<Requests> getClosedRequests(@RequestParam String bankId) {
+		return reqService.getClosedRequests(bankId);
+	}
 }
