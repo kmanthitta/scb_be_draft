@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.ActiveAccesses;
@@ -25,6 +26,15 @@ public class RequestsService {
 
 	@Autowired
 	ActiveAccessesService activeAccSer;
+
+	@Value("${nasAdminMail}")
+	private String nasAdminMail;
+
+	@Value("${bbAdminMail}")
+	private String bbAdminMail;
+
+	@Value("${sasAdminMail}")
+	private String sasAdminMail;
 
 	public void submitNewRequest(Map<String, Object> payload) {
 		generateRequest(payload);
@@ -71,7 +81,6 @@ public class RequestsService {
 		Integer masterId = getUserReqCount((String) payload.get("bankId")) + 1;
 		ArrayList<Map<String, Object>> req = (ArrayList<Map<String, Object>>) payload.get("requests");
 		// findDM()
-		// findAdminsifApplicablefromconfig()
 		for (int i = 0; i < count; i++) {
 			Requests r = new Requests();
 			r.setBank_id((String) payload.get("bankId"));
@@ -90,19 +99,20 @@ public class RequestsService {
 			r.setDomain_manager_approval_status("PENDING");
 			r.setDomain_manager_approved_date(null);
 			r.setDomain_manager_comments(null);
+			r.setStatus("UNDER APPROVAL");
 			switch ((String) req.get(i).get("type")) {
 			case "Group":
-				r.setNas_admin_email("NAS MAIL");
+				r.setNas_admin_email(nasAdminMail);
 				r.setNas_admin_approval_status("PENDING");
 				r.setNas_admin_approved_date(null);
 				r.setNas_admin_comments(null);
-				r.setBitbucket_admin_email("BB MAIL");
+				r.setBitbucket_admin_email(bbAdminMail);
 				r.setBitbucket_admin_approval_status("PENDING");
 				r.setBitbucket_admin_approved_date(null);
 				r.setBitbucket_admin_comments(null);
 				break;
 			case "SAS Viya":
-				r.setSas_admin_email("SAS MAIL");
+				r.setSas_admin_email(sasAdminMail);
 				r.setSas_admin_approval_status("PENDING");
 				r.setSas_admin_approved_date(null);
 				r.setSas_admin_comments(null);
@@ -158,24 +168,39 @@ public class RequestsService {
 				Optional<Requests> r = repo.findById((Integer) req.get("id"));
 				r.get().setLine_manager_comments((String) req.get("comments"));
 				r.get().setLine_manager_approval_status((String) req.get("action"));
+				if ((String) req.get("action") == "REJECTED") {
+					r.get().setStatus("REJECTED");
+				}
 				r.get().setLine_manager_approved_date(new Date());
 				repo.save(r.get());
 			}
-			//send mail to dm
+			// send mail to dm
+			// handle rejection
 			break;
 		case "DM":
 			for (Map<String, Object> req : requestIDs) {
 				Optional<Requests> r = repo.findById((Integer) req.get("id"));
 				r.get().setDomain_manager_comments((String) req.get("comments"));
 				r.get().setDomain_manager_approval_status((String) req.get("action"));
+				if ((String) req.get("action") == "REJECTED") {
+					r.get().setStatus("REJECTED");
+				}
 				r.get().setDomain_manager_approved_date(new Date());
 				repo.save(r.get());
 			}
-			//send mail to admins
+			// send mail to admins
+			// handle rejection
 			break;
 		case "Admin":
 			// check which admin through email
-			String admin = "SAS";
+			String admin = "";
+			if (email == nasAdminMail) {
+				admin = "NAS";
+			} else if (email == bbAdminMail) {
+				admin = "BB";
+			} else {
+				admin = "SAS";
+			}
 			switch (admin) {
 			case "SAS":
 				for (Map<String, Object> req : requestIDs) {
@@ -185,7 +210,7 @@ public class RequestsService {
 					r.get().setSas_admin_approved_date(new Date());
 					repo.save(r.get());
 				}
-				//send mail??
+				// send mail??
 				break;
 			case "NAS":
 				for (Map<String, Object> req : requestIDs) {
@@ -195,7 +220,7 @@ public class RequestsService {
 					r.get().setNas_admin_approved_date(new Date());
 					repo.save(r.get());
 				}
-				//send mail??
+				// send mail??
 				break;
 			case "BB":
 				for (Map<String, Object> req : requestIDs) {
@@ -205,7 +230,7 @@ public class RequestsService {
 					r.get().setBitbucket_admin_approved_date(new Date());
 					repo.save(r.get());
 				}
-				//send mail??
+				// send mail??
 				break;
 			}
 			break;
