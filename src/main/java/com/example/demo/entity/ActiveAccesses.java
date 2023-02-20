@@ -20,20 +20,20 @@ public class ActiveAccesses {
 	private Integer id;
 	@CreatedDate
 	@Temporal(TemporalType.DATE)
-	private Date created_on;
+	private Date createdOn;
 	@CreatedDate
 	@Temporal(TemporalType.DATE)
-	private Date updated_on;
+	private Date updatedOn;
 	private String bank_id;
 	private String email;
 	private String role;
 	private String location;
 	private String group_name;
 	private String sas_viya;
-	private String lm_email;
-	private String dm_email;
-	private String group_status;
-	private String user_status;
+	private String lmEmail;
+	private String dmEmail;
+	private String groupStatus;
+	private String userStatus;
 	
 	public Integer getId() {
 		return id;
@@ -71,17 +71,17 @@ public class ActiveAccesses {
 	public void setSas_viya(String sas_viya) {
 		this.sas_viya = sas_viya;
 	}
-	public Date getCreated_on() {
-		return created_on;
+	public Date getCreatedOn() {
+		return createdOn;
 	}
-	public void setCreated_on(Date created_on) {
-		this.created_on = created_on;
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
 	}
-	public Date getUpdated_on() {
-		return updated_on;
+	public Date getUpdatedOn() {
+		return updatedOn;
 	}
-	public void setUpdated_on(Date updated_on) {
-		this.updated_on = updated_on;
+	public void setUpdatedOn(Date updatedOn) {
+		this.updatedOn = updatedOn;
 	}
 	public String getEmail() {
 		return email;
@@ -89,37 +89,37 @@ public class ActiveAccesses {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getLm_email() {
-		return lm_email;
+	public String getLmEmail() {
+		return lmEmail;
 	}
-	public void setLm_email(String lm_email) {
-		this.lm_email = lm_email;
+	public void setLmEmail(String lmEmail) {
+		this.lmEmail = lmEmail;
 	}
-	public String getDm_email() {
-		return dm_email;
+	public String getDmEmail() {
+		return dmEmail;
 	}
-	public void setDm_email(String dm_email) {
-		this.dm_email = dm_email;
+	public void setDmEmail(String dmEmail) {
+		this.dmEmail = dmEmail;
 	}
-	public String getGroup_status() {
-		return group_status;
+	public String getGroupStatus() {
+		return groupStatus;
 	}
-	public void setGroup_status(String group_status) {
-		this.group_status = group_status;
+	public void setGroupStatus(String groupStatus) {
+		this.groupStatus = groupStatus;
 	}
-	public String getUser_status() {
-		return user_status;
+	public String getUserStatus() {
+		return userStatus;
 	}
-	public void setUser_status(String user_status) {
-		this.user_status = user_status;
+	public void setUserStatus(String userStatus) {
+		this.userStatus = userStatus;
 	}
 	
 	@Override
 	public String toString() {
-		return "ActiveAccesses [id=" + id + ", created_on=" + created_on + ", updated_on=" + updated_on + ", bank_id="
+		return "ActiveAccesses [id=" + id + ", createdOn=" + createdOn + ", updatedOn=" + updatedOn + ", bank_id="
 				+ bank_id + ", email=" + email + ", role=" + role + ", location=" + location + ", group_name="
-				+ group_name + ", sas_viya=" + sas_viya + ", lm_email=" + lm_email + ", dm_email=" + dm_email
-				+ ", group_status=" + group_status + ", user_status=" + user_status + "]";
+				+ group_name + ", sas_viya=" + sas_viya + ", lmEmail=" + lmEmail + ", dmEmail=" + dmEmail
+				+ ", groupStatus=" + groupStatus + ", userStatus=" + userStatus + "]";
 	}
 	
 	
