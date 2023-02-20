@@ -85,37 +85,37 @@ public class RequestsService {
 			Requests r = new Requests();
 			r.setBankId((String) payload.get("bankId"));
 			r.setName((String) payload.get("name"));
-			r.setRequest_date(new Date());
-			r.setRequest_id(masterId);
-			r.setRequest_item_id(i + 1);
-			r.setRequest_type((String) req.get(i).get("type"));
-			r.setRequest_action((String) req.get(i).get("action"));
-			r.setRequest_value((String) req.get(i).get("value"));
-			r.setLine_manager_email((String) payload.get("LMemail"));
-			r.setLine_manager_approval_status("PENDING");
-			r.setLine_manager_approved_date(null);
-			r.setLine_manager_comments(null);
-			r.setDomain_manager_email((String) payload.get("DMemail"));
-			r.setDomain_manager_approval_status("PENDING");
-			r.setDomain_manager_approved_date(null);
-			r.setDomain_manager_comments(null);
+			r.setRequestDate(new Date());
+			r.setRequestId(masterId);
+			r.setRequestItemId(i + 1);
+			r.setRequestType((String) req.get(i).get("type"));
+			r.setRequestAction((String) req.get(i).get("action"));
+			r.setRequestValue((String) req.get(i).get("value"));
+			r.setLineManagerEmail((String) payload.get("LMemail"));
+			r.setLineManagerApprovalStatus("PENDING");
+			r.setLineManagerApprovedDate(null);
+			r.setLineManagerComments(null);
+			r.setDomainManagerEmail((String) payload.get("DMemail"));
+			r.setDomainManagerApprovalStatus("PENDING");
+			r.setDomainManagerApprovedDate(null);
+			r.setDomainManagerComments(null);
 			r.setStatus("UNDER APPROVAL");
 			switch ((String) req.get(i).get("type")) {
 			case "Group":
-				r.setNas_admin_email(nasAdminMail);
-				r.setNas_admin_approval_status("PENDING");
-				r.setNas_admin_approved_date(null);
-				r.setNas_admin_comments(null);
-				r.setBitbucket_admin_email(bbAdminMail);
-				r.setBitbucket_admin_approval_status("PENDING");
-				r.setBitbucket_admin_approved_date(null);
-				r.setBitbucket_admin_comments(null);
+				r.setNasAdminEmail(nasAdminMail);
+				r.setNasAdminApprovalStatus("PENDING");
+				r.setNasAdminApprovedDate(null);
+				r.setNasAdminComments(null);
+				r.setBitbucketAdminEmail(bbAdminMail);
+				r.setBitbucketAdminApprovalStatus("PENDING");
+				r.setBitbucketAdminApprovedDate(null);
+				r.setBitbucketAdminComments(null);
 				break;
 			case "SAS Viya":
-				r.setSas_admin_email(sasAdminMail);
-				r.setSas_admin_approval_status("PENDING");
-				r.setSas_admin_approved_date(null);
-				r.setSas_admin_comments(null);
+				r.setSasAdminEmail(sasAdminMail);
+				r.setSasAdminApprovalStatus("PENDING");
+				r.setSasAdminApprovedDate(null);
+				r.setSasAdminComments(null);
 				break;
 			}
 			repo.save(r);
@@ -139,7 +139,7 @@ public class RequestsService {
 		System.out.println(obj);
 		return obj;
 	}
-
+	
 	public List<Requests> getOpenRequests(String bankId) {
 		return repo.findOpenRequests(bankId);
 	}
@@ -166,12 +166,12 @@ public class RequestsService {
 		case "LM":
 			for (Map<String, Object> req : requestIDs) {
 				Requests r = repo.findByRowId((Integer) req.get("id"));
-				r.setLine_manager_comments((String) req.get("comments"));
-				r.setLine_manager_approval_status((String) req.get("action"));
+				r.setLineManagerComments((String) req.get("comments"));
+				r.setLineManagerApprovalStatus((String) req.get("action"));
 				if ((String) req.get("action") == "REJECTED") {
 					r.setStatus("REJECTED");
 				}
-				r.setLine_manager_approved_date(new Date());
+				r.setLineManagerApprovedDate(new Date());
 				repo.save(r);
 			}
 			// send mail to dm
@@ -180,12 +180,12 @@ public class RequestsService {
 		case "DM":
 			for (Map<String, Object> req : requestIDs) {
 				Requests r = repo.findByRowId((Integer) req.get("id"));
-				r.setDomain_manager_comments((String) req.get("comments"));
-				r.setDomain_manager_approval_status((String) req.get("action"));
+				r.setDomainManagerComments((String) req.get("comments"));
+				r.setDomainManagerApprovalStatus((String) req.get("action"));
 				if ((String) req.get("action") == "REJECTED") {
 					r.setStatus("REJECTED");
 				}
-				r.setDomain_manager_approved_date(new Date());
+				r.setDomainManagerApprovedDate(new Date());
 				repo.save(r);
 			}
 			// send mail to admins
@@ -204,31 +204,31 @@ public class RequestsService {
 			switch (admin) {
 			case "SAS":
 				for (Map<String, Object> req : requestIDs) {
-					Optional<Requests> r = repo.findById((Integer) req.get("id"));
-					r.get().setSas_admin_comments((String) req.get("comments"));
-					r.get().setSas_admin_approval_status((String) req.get("action"));
-					r.get().setSas_admin_approved_date(new Date());
-					repo.save(r.get());
+					Requests r = repo.findByRowId((Integer) req.get("id"));
+					r.setSasAdminComments((String) req.get("comments"));
+					r.setSasAdminApprovalStatus((String) req.get("action"));
+					r.setSasAdminApprovedDate(new Date());
+					repo.save(r);
 				}
 				// send mail??
 				break;
 			case "NAS":
 				for (Map<String, Object> req : requestIDs) {
-					Optional<Requests> r = repo.findById((Integer) req.get("id"));
-					r.get().setNas_admin_comments((String) req.get("comments"));
-					r.get().setNas_admin_approval_status((String) req.get("action"));
-					r.get().setNas_admin_approved_date(new Date());
-					repo.save(r.get());
+					Requests r = repo.findByRowId((Integer) req.get("id"));
+					r.setNasAdminComments((String) req.get("comments"));
+					r.setNasAdminApprovalStatus((String) req.get("action"));
+					r.setNasAdminApprovedDate(new Date());
+					repo.save(r);
 				}
 				// send mail??
 				break;
 			case "BB":
 				for (Map<String, Object> req : requestIDs) {
-					Optional<Requests> r = repo.findById((Integer) req.get("id"));
-					r.get().setBitbucket_admin_comments((String) req.get("comments"));
-					r.get().setBitbucket_admin_approval_status((String) req.get("action"));
-					r.get().setBitbucket_admin_approved_date(new Date());
-					repo.save(r.get());
+					Requests r = repo.findByRowId((Integer) req.get("id"));
+					r.setBitbucketAdminComments((String) req.get("comments"));
+					r.setBitbucketAdminApprovalStatus((String) req.get("action"));
+					r.setBitbucketAdminApprovedDate(new Date());
+					repo.save(r);
 				}
 				// send mail??
 				break;

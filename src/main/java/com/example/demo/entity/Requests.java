@@ -17,37 +17,37 @@ public class Requests {
 	private String bankId;
 	private String name;
 	@Temporal(TemporalType.DATE)
-	private Date request_date;
-	private Integer request_id;
-	private Integer request_item_id;
-	private String request_type;
-	private String request_action;
-	private String request_value;
-	private String line_manager_email;
-	private String line_manager_approval_status;
+	private Date requestDate;
+	private Integer requestId;
+	private Integer requestItemId;
+	private String requestType;
+	private String requestAction;
+	private String requestValue;
+	private String lineManagerEmail;
+	private String lineManagerApprovalStatus;
 	@Temporal(TemporalType.DATE)
-	private Date line_manager_approved_date;
-	private String line_manager_comments;
-	private String domain_manager_email;
-	private String domain_manager_approval_status;
+	private Date lineManagerApprovedDate;
+	private String lineManagerComments;
+	private String domainManagerEmail;
+	private String domainManagerApprovalStatus;
 	@Temporal(TemporalType.DATE)
-	private Date domain_manager_approved_date;
-	private String domain_manager_comments;
-	private String sas_admin_email;
-	private String sas_admin_approval_status;
+	private Date domainManagerApprovedDate;
+	private String domainManagerComments;
+	private String sasAdminEmail;
+	private String sasAdminApprovalStatus;
 	@Temporal(TemporalType.DATE)
-	private Date sas_admin_approved_date;
-	private String sas_admin_comments;
-	private String nas_admin_email;
-	private String nas_admin_approval_status;
+	private Date sasAdminApprovedDate;
+	private String sasAdminComments;
+	private String nasAdminEmail;
+	private String nasAdminApprovalStatus;
 	@Temporal(TemporalType.DATE)
-	private Date nas_admin_approved_date;
-	private String nas_admin_comments;
-	private String bitbucket_admin_email;
-	private String bitbucket_admin_approval_status;
+	private Date nasAdminApprovedDate;
+	private String nasAdminComments;
+	private String bitbucketAdminEmail;
+	private String bitbucketAdminApprovalStatus;
 	@Temporal(TemporalType.DATE)
-	private Date bitbucket_admin_approved_date;
-	private String bitbucket_admin_comments;
+	private Date bitbucketAdminApprovedDate;
+	private String bitbucketAdminComments;
 	private String status;
 
 	public Integer getRowId() {
@@ -66,116 +66,116 @@ public class Requests {
 		this.bankId = bankId;
 	}
 
-	public Date getRequest_date() {
-		return request_date;
+	public Date getRequestDate() {
+		return requestDate;
 	}
 
-	public void setRequest_date(Date date) {
-		this.request_date = date;
+	public void setRequestDate(Date date) {
+		this.requestDate = date;
 	}
 
-	public Integer getRequest_id() {
-		return request_id;
+	public Integer getRequestId() {
+		return requestId;
 	}
 
-	public void setRequest_id(Integer request_id) {
-		this.request_id = request_id;
+	public void setRequestId(Integer requestId) {
+		this.requestId = requestId;
 	}
 
-	public Integer getRequest_item_id() {
-		return request_item_id;
+	public Integer getRequestItemId() {
+		return requestItemId;
 	}
 
-	public void setRequest_item_id(Integer request_item_id) {
-		this.request_item_id = request_item_id;
+	public void setRequestItemId(Integer requestItemId) {
+		this.requestItemId = requestItemId;
 	}
 
-	public String getRequest_type() {
-		return request_type;
+	public String getRequestType() {
+		return requestType;
 	}
 
-	public void setRequest_type(String request_type) {
-		this.request_type = request_type;
+	public void setRequestType(String requestType) {
+		this.requestType = requestType;
 	}
 
-	public String getRequest_action() {
-		return request_action;
+	public String getRequestAction() {
+		return requestAction;
 	}
 
-	public void setRequest_action(String request_action) {
-		this.request_action = request_action;
+	public void setRequestAction(String requestAction) {
+		this.requestAction = requestAction;
 	}
 
-	public String getRequest_value() {
-		return request_value;
+	public String getRequestValue() {
+		return requestValue;
 	}
 
-	public void setRequest_value(String request_value) {
-		this.request_value = request_value;
+	public void setRequestValue(String requestValue) {
+		this.requestValue = requestValue;
 	}
 
-	public String getLine_manager_email() {
-		return line_manager_email;
+	public String getLineManagerEmail() {
+		return lineManagerEmail;
 	}
 
-	public void setLine_manager_email(String line_manager_email) {
-		this.line_manager_email = line_manager_email;
+	public void setLineManagerEmail(String lineManagerEmail) {
+		this.lineManagerEmail = lineManagerEmail;
 	}
 
-	public String getLine_manager_approval_status() {
-		return line_manager_approval_status;
+	public String getLineManagerApprovalStatus() {
+		return lineManagerApprovalStatus;
 	}
 
-	public void setLine_manager_approval_status(String line_manager_approval_status) {
-		this.line_manager_approval_status = line_manager_approval_status;
+	public void setLineManagerApprovalStatus(String lineManagerApprovalStatus) {
+		this.lineManagerApprovalStatus = lineManagerApprovalStatus;
 	}
 
-	public Date getLine_manager_approved_date() {
-		return line_manager_approved_date;
+	public Date getLineManagerApprovedDate() {
+		return lineManagerApprovedDate;
 	}
 
-	public void setLine_manager_approved_date(Date line_manager_approved_date) {
-		this.line_manager_approved_date = line_manager_approved_date;
+	public void setLineManagerApprovedDate(Date lineManagerApprovedDate) {
+		this.lineManagerApprovedDate = lineManagerApprovedDate;
 	}
 
-	public String getLine_manager_comments() {
-		return line_manager_comments;
+	public String getLineManagerComments() {
+		return lineManagerComments;
 	}
 
-	public void setLine_manager_comments(String line_manager_comments) {
-		this.line_manager_comments = line_manager_comments;
+	public void setLineManagerComments(String lineManagerComments) {
+		this.lineManagerComments = lineManagerComments;
 	}
 
-	public String getDomain_manager_email() {
-		return domain_manager_email;
+	public String getDomainManagerEmail() {
+		return domainManagerEmail;
 	}
 
-	public void setDomain_manager_email(String domain_manager_email) {
-		this.domain_manager_email = domain_manager_email;
+	public void setDomainManagerEmail(String domainManagerEmail) {
+		this.domainManagerEmail = domainManagerEmail;
 	}
 
-	public String getDomain_manager_approval_status() {
-		return domain_manager_approval_status;
+	public String getDomainManagerApprovalStatus() {
+		return domainManagerApprovalStatus;
 	}
 
-	public void setDomain_manager_approval_status(String domain_manager_approval_status) {
-		this.domain_manager_approval_status = domain_manager_approval_status;
+	public void setDomainManagerApprovalStatus(String domainManagerApprovalStatus) {
+		this.domainManagerApprovalStatus = domainManagerApprovalStatus;
 	}
 
-	public Date getDomain_manager_approved_date() {
-		return domain_manager_approved_date;
+	public Date getDomainManagerApprovedDate() {
+		return domainManagerApprovedDate;
 	}
 
-	public void setDomain_manager_approved_date(Date domain_manager_approved_date) {
-		this.domain_manager_approved_date = domain_manager_approved_date;
+	public void setDomainManagerApprovedDate(Date domainManagerApprovedDate) {
+		this.domainManagerApprovedDate = domainManagerApprovedDate;
 	}
 
-	public String getDomain_manager_comments() {
-		return domain_manager_comments;
+	public String getDomainManagerComments() {
+		return domainManagerComments;
 	}
 
-	public void setDomain_manager_comments(String domain_manager_comments) {
-		this.domain_manager_comments = domain_manager_comments;
+	public void setDomainManagerComments(String domainManagerComments) {
+		this.domainManagerComments = domainManagerComments;
 	}
 
 	public String getName() {
@@ -186,100 +186,100 @@ public class Requests {
 		this.name = name;
 	}
 
-	public String getSas_admin_email() {
-		return sas_admin_email;
+	public String getSasAdminEmail() {
+		return sasAdminEmail;
 	}
 
-	public void setSas_admin_email(String sas_admin_email) {
-		this.sas_admin_email = sas_admin_email;
+	public void setSasAdminEmail(String sasAdminEmail) {
+		this.sasAdminEmail = sasAdminEmail;
 	}
 
-	public String getSas_admin_approval_status() {
-		return sas_admin_approval_status;
+	public String getSasAdminApprovalStatus() {
+		return sasAdminApprovalStatus;
 	}
 
-	public void setSas_admin_approval_status(String sas_admin_approval_status) {
-		this.sas_admin_approval_status = sas_admin_approval_status;
+	public void setSasAdminApprovalStatus(String sasAdminApprovalStatus) {
+		this.sasAdminApprovalStatus = sasAdminApprovalStatus;
 	}
 
-	public Date getSas_admin_approved_date() {
-		return sas_admin_approved_date;
+	public Date getSasAdminApprovedDate() {
+		return sasAdminApprovedDate;
 	}
 
-	public void setSas_admin_approved_date(Date sas_admin_approved_date) {
-		this.sas_admin_approved_date = sas_admin_approved_date;
+	public void setSasAdminApprovedDate(Date sasAdminApprovedDate) {
+		this.sasAdminApprovedDate = sasAdminApprovedDate;
 	}
 
-	public String getSas_admin_comments() {
-		return sas_admin_comments;
+	public String getSasAdminComments() {
+		return sasAdminComments;
 	}
 
-	public void setSas_admin_comments(String sas_admin_comments) {
-		this.sas_admin_comments = sas_admin_comments;
+	public void setSasAdminComments(String sasAdminComments) {
+		this.sasAdminComments = sasAdminComments;
 	}
 
-	public String getNas_admin_email() {
-		return nas_admin_email;
+	public String getNasAdminEmail() {
+		return nasAdminEmail;
 	}
 
-	public void setNas_admin_email(String nas_admin_email) {
-		this.nas_admin_email = nas_admin_email;
+	public void setNasAdminEmail(String nasAdminEmail) {
+		this.nasAdminEmail = nasAdminEmail;
 	}
 
-	public String getNas_admin_approval_status() {
-		return nas_admin_approval_status;
+	public String getNasAdminApprovalStatus() {
+		return nasAdminApprovalStatus;
 	}
 
-	public void setNas_admin_approval_status(String nas_admin_approval_status) {
-		this.nas_admin_approval_status = nas_admin_approval_status;
+	public void setNasAdminApprovalStatus(String nasAdminApprovalStatus) {
+		this.nasAdminApprovalStatus = nasAdminApprovalStatus;
 	}
 
-	public Date getNas_admin_approved_date() {
-		return nas_admin_approved_date;
+	public Date getNasAdminApprovedDate() {
+		return nasAdminApprovedDate;
 	}
 
-	public void setNas_admin_approved_date(Date nas_admin_approved_date) {
-		this.nas_admin_approved_date = nas_admin_approved_date;
+	public void setNasAdminApprovedDate(Date nasAdminApprovedDate) {
+		this.nasAdminApprovedDate = nasAdminApprovedDate;
 	}
 
-	public String getNas_admin_comments() {
-		return nas_admin_comments;
+	public String getNasAdminComments() {
+		return nasAdminComments;
 	}
 
-	public void setNas_admin_comments(String nas_admin_comments) {
-		this.nas_admin_comments = nas_admin_comments;
+	public void setNasAdminComments(String nasAdminComments) {
+		this.nasAdminComments = nasAdminComments;
 	}
 
-	public String getBitbucket_admin_email() {
-		return bitbucket_admin_email;
+	public String getBitbucketAdminEmail() {
+		return bitbucketAdminEmail;
 	}
 
-	public void setBitbucket_admin_email(String bitbucket_admin_email) {
-		this.bitbucket_admin_email = bitbucket_admin_email;
+	public void setBitbucketAdminEmail(String bitbucketAdminEmail) {
+		this.bitbucketAdminEmail = bitbucketAdminEmail;
 	}
 
-	public String getBitbucket_admin_approval_status() {
-		return bitbucket_admin_approval_status;
+	public String getBitbucketAdminApprovalStatus() {
+		return bitbucketAdminApprovalStatus;
 	}
 
-	public void setBitbucket_admin_approval_status(String bitbucket_admin_approval_status) {
-		this.bitbucket_admin_approval_status = bitbucket_admin_approval_status;
+	public void setBitbucketAdminApprovalStatus(String bitbucketAdminApprovalStatus) {
+		this.bitbucketAdminApprovalStatus = bitbucketAdminApprovalStatus;
 	}
 
-	public Date getBitbucket_admin_approved_date() {
-		return bitbucket_admin_approved_date;
+	public Date getBitbucketAdminApprovedDate() {
+		return bitbucketAdminApprovedDate;
 	}
 
-	public void setBitbucket_admin_approved_date(Date bitbucket_admin_approved_date) {
-		this.bitbucket_admin_approved_date = bitbucket_admin_approved_date;
+	public void setBitbucketAdminApprovedDate(Date bitbucketAdminApprovedDate) {
+		this.bitbucketAdminApprovedDate = bitbucketAdminApprovedDate;
 	}
 
-	public String getBitbucket_admin_comments() {
-		return bitbucket_admin_comments;
+	public String getBitbucketAdminComments() {
+		return bitbucketAdminComments;
 	}
 
-	public void setBitbucket_admin_comments(String bitbucket_admin_comments) {
-		this.bitbucket_admin_comments = bitbucket_admin_comments;
+	public void setBitbucketAdminComments(String bitbucketAdminComments) {
+		this.bitbucketAdminComments = bitbucketAdminComments;
 	}
 
 	public String getStatus() {
@@ -293,21 +293,21 @@ public class Requests {
 	@Override
 	public String toString() {
 		return "Requests [row_id=" + rowId + ", bankId=" + bankId + ", name=" + name + ", request_date="
-				+ request_date + ", request_id=" + request_id + ", request_item_id=" + request_item_id
-				+ ", request_type=" + request_type + ", request_action=" + request_action + ", request_value="
-				+ request_value + ", line_manager_email=" + line_manager_email + ", line_manager_approval_status="
-				+ line_manager_approval_status + ", line_manager_approved_date=" + line_manager_approved_date
-				+ ", line_manager_comments=" + line_manager_comments + ", domain_manager_email=" + domain_manager_email
-				+ ", domain_manager_approval_status=" + domain_manager_approval_status
-				+ ", domain_manager_approved_date=" + domain_manager_approved_date + ", domain_manager_comments="
-				+ domain_manager_comments + ", sas_admin_email=" + sas_admin_email + ", sas_admin_approval_status="
-				+ sas_admin_approval_status + ", sas_admin_approved_date=" + sas_admin_approved_date
-				+ ", sas_admin_comments=" + sas_admin_comments + ", nas_admin_email=" + nas_admin_email
-				+ ", nas_admin_approval_status=" + nas_admin_approval_status + ", nas_admin_approved_date="
-				+ nas_admin_approved_date + ", nas_admin_comments=" + nas_admin_comments + ", bitbucket_admin_email="
-				+ bitbucket_admin_email + ", bitbucket_admin_approval_status=" + bitbucket_admin_approval_status
-				+ ", bitbucket_admin_approved_date=" + bitbucket_admin_approved_date + ", bitbucket_admin_comments="
-				+ bitbucket_admin_comments + ", status=" + status + "]";
+				+ requestDate + ", request_id=" + requestId + ", request_item_id=" + requestItemId
+				+ ", request_type=" + requestType + ", request_action=" + requestAction + ", request_value="
+				+ requestValue + ", line_manager_email=" + lineManagerEmail + ", line_manager_approval_status="
+				+ lineManagerApprovalStatus + ", lineManagerApprovedDate=" + lineManagerApprovedDate
+				+ ", lineManagerComments=" + lineManagerComments + ", domainManagerEmail=" + domainManagerEmail
+				+ ", domainManagerApprovalStatus=" + domainManagerApprovalStatus
+				+ ", domainManagerApprovedDate=" + domainManagerApprovedDate + ", domainManagerComm="
+				+ domainManagerComments + ", sasAdminEmail=" + sasAdminEmail + ", sasAdminApprovalStatus="
+				+ sasAdminApprovalStatus + ", sasAdminApprovedDate=" + sasAdminApprovedDate
+				+ ", sasAdminComments=" + sasAdminComments + ", nasAdminEmail=" + nasAdminEmail
+				+ ", nasAdminApprovalStatus=" + nasAdminApprovalStatus + ", nasAdminApprovedDate="
+				+ nasAdminApprovedDate + ", nasAdminComments=" + nasAdminComments + ", bitbucketAdminEmail="
+				+ bitbucketAdminEmail + ", bitbucketAdminApprovalStatus=" + bitbucketAdminApprovalStatus
+				+ ", bitbucketAdminApprovedDate=" + bitbucketAdminApprovedDate + ", bitbucketAdminComments="
+				+ bitbucketAdminComments + ", status=" + status + "]";
 	}
 
 }
