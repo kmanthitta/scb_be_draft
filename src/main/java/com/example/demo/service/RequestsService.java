@@ -83,7 +83,7 @@ public class RequestsService {
 		// findDM()
 		for (int i = 0; i < count; i++) {
 			Requests r = new Requests();
-			r.setBank_id((String) payload.get("bankId"));
+			r.setBankId((String) payload.get("bankId"));
 			r.setName((String) payload.get("name"));
 			r.setRequest_date(new Date());
 			r.setRequest_id(masterId);

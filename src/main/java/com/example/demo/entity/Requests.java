@@ -13,8 +13,8 @@ import jakarta.persistence.TemporalType;
 public class Requests {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer row_id;
-	private String bank_id;
+	private Integer rowId;
+	private String bankId;
 	private String name;
 	@Temporal(TemporalType.DATE)
 	private Date request_date;
@@ -50,20 +50,20 @@ public class Requests {
 	private String bitbucket_admin_comments;
 	private String status;
 
-	public Integer getRow_id() {
-		return row_id;
+	public Integer getRowId() {
+		return rowId;
 	}
 
-	public void setRow_id(Integer row_id) {
-		this.row_id = row_id;
+	public void setRowId(Integer rowId) {
+		this.rowId = rowId;
 	}
 
-	public String getBank_id() {
-		return bank_id;
+	public String getBankId() {
+		return bankId;
 	}
 
-	public void setBank_id(String bank_id) {
-		this.bank_id = bank_id;
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
 	}
 
 	public Date getRequest_date() {
@@ -292,7 +292,7 @@ public class Requests {
 
 	@Override
 	public String toString() {
-		return "Requests [row_id=" + row_id + ", bank_id=" + bank_id + ", name=" + name + ", request_date="
+		return "Requests [row_id=" + rowId + ", bankId=" + bankId + ", name=" + name + ", request_date="
 				+ request_date + ", request_id=" + request_id + ", request_item_id=" + request_item_id
 				+ ", request_type=" + request_type + ", request_action=" + request_action + ", request_value="
 				+ request_value + ", line_manager_email=" + line_manager_email + ", line_manager_approval_status="
