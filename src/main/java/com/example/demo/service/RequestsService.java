@@ -25,6 +25,9 @@ public class RequestsService {
 
 	@Autowired
 	ActiveAccessesService activeAccSer;
+	
+	@Autowired
+	DomainManagerInformationService domainManSer;
 
 	@Value("${nasAdminMail}")
 	private String nasAdminMail;
@@ -34,6 +37,10 @@ public class RequestsService {
 
 	@Value("${sasAdminMail}")
 	private String sasAdminMail;
+	
+	public List<String> getDomains(){
+		return domainManSer.getDomains();
+	}
 
 	public void submitNewRequest(Map<String, Object> payload) {
 		generateRequest(payload);
@@ -53,8 +60,8 @@ public class RequestsService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("bankId", acc.get(0).getBank_id());
 		map.put("name", "just another name");
-		map.put("LMemail", acc.get(0).getLm_email());
-		map.put("DMemail", acc.get(0).getDm_email());
+		map.put("LMemail", acc.get(0).getLmEmail());
+		map.put("DMemail", acc.get(0).getDmEmail());
 		ArrayList<Map<String, Object>> requests = new ArrayList<Map<String, Object>>();
 		requests.add(buildSingleRequest("Role", acc.get(0).getRole(), "Delete"));
 		requests.add(buildSingleRequest("Location", acc.get(0).getLocation(), "Delete"));
@@ -191,7 +198,6 @@ public class RequestsService {
 			// handle rejection
 			break;
 		case "Admin":
-			// check which admin through email
 			String admin = "";
 			if (email == nasAdminMail) {
 				admin = "NAS";

@@ -63,4 +63,9 @@ public class RequestsController {
 	public void approveRequest(@RequestBody Map<String, Object> payload) {
 		reqService.approveRequest(payload);
 	}
+
+	@GetMapping("/getDomains")
+	public List<String> getDomains() {
+		return reqService.getDomains();
+	}
 }
