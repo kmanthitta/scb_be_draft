@@ -165,28 +165,28 @@ public class RequestsService {
 		switch (type) {
 		case "LM":
 			for (Map<String, Object> req : requestIDs) {
-				Optional<Requests> r = repo.findById((Integer) req.get("id"));
-				r.get().setLine_manager_comments((String) req.get("comments"));
-				r.get().setLine_manager_approval_status((String) req.get("action"));
+				Requests r = repo.findByRowId((Integer) req.get("id"));
+				r.setLine_manager_comments((String) req.get("comments"));
+				r.setLine_manager_approval_status((String) req.get("action"));
 				if ((String) req.get("action") == "REJECTED") {
-					r.get().setStatus("REJECTED");
+					r.setStatus("REJECTED");
 				}
-				r.get().setLine_manager_approved_date(new Date());
-				repo.save(r.get());
+				r.setLine_manager_approved_date(new Date());
+				repo.save(r);
 			}
 			// send mail to dm
 			// handle rejection
 			break;
 		case "DM":
 			for (Map<String, Object> req : requestIDs) {
-				Optional<Requests> r = repo.findById((Integer) req.get("id"));
-				r.get().setDomain_manager_comments((String) req.get("comments"));
-				r.get().setDomain_manager_approval_status((String) req.get("action"));
+				Requests r = repo.findByRowId((Integer) req.get("id"));
+				r.setDomain_manager_comments((String) req.get("comments"));
+				r.setDomain_manager_approval_status((String) req.get("action"));
 				if ((String) req.get("action") == "REJECTED") {
-					r.get().setStatus("REJECTED");
+					r.setStatus("REJECTED");
 				}
-				r.get().setDomain_manager_approved_date(new Date());
-				repo.save(r.get());
+				r.setDomain_manager_approved_date(new Date());
+				repo.save(r);
 			}
 			// send mail to admins
 			// handle rejection

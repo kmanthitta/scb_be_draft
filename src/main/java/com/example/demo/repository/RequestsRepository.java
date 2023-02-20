@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.demo.entity.Requests;
 
 public interface RequestsRepository extends JpaRepository<Requests, Integer> {
+	public Requests findByRowId(Integer rowId);
+
 	@Query(value = "SELECT max(request_id) FROM requests WHERE bank_id=:bankId", nativeQuery = true)
 	public Integer getUserReqCount(String bankId);
 
