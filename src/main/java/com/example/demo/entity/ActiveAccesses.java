@@ -28,8 +28,8 @@ public class ActiveAccesses {
 	private String email;
 	private String role;
 	private String location;
-	private String group_name;
-	private String sas_viya;
+	private String groupName;
+	private String sasViya;
 	private String lmEmail;
 	private String dmEmail;
 	private String groupStatus;
@@ -59,17 +59,17 @@ public class ActiveAccesses {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public String getGroup_name() {
-		return group_name;
+	public String getGroupName() {
+		return groupName;
 	}
-	public void setGroup_name(String group_name) {
-		this.group_name = group_name;
+	public void setGroup_name(String groupName) {
+		this.groupName = groupName;
 	}
-	public String getSas_viya() {
-		return sas_viya;
+	public String getSasViya() {
+		return sasViya;
 	}
-	public void setSas_viya(String sas_viya) {
-		this.sas_viya = sas_viya;
+	public void setSasViya(String sasViya) {
+		this.sasViya = sasViya;
 	}
 	public Date getCreatedOn() {
 		return createdOn;
@@ -117,8 +117,8 @@ public class ActiveAccesses {
 	@Override
 	public String toString() {
 		return "ActiveAccesses [id=" + id + ", createdOn=" + createdOn + ", updatedOn=" + updatedOn + ", bank_id="
-				+ bank_id + ", email=" + email + ", role=" + role + ", location=" + location + ", group_name="
-				+ group_name + ", sas_viya=" + sas_viya + ", lmEmail=" + lmEmail + ", dmEmail=" + dmEmail
+				+ bank_id + ", email=" + email + ", role=" + role + ", location=" + location + ", groupName="
+				+ groupName + ", sasViya=" + sasViya + ", lmEmail=" + lmEmail + ", dmEmail=" + dmEmail
 				+ ", groupStatus=" + groupStatus + ", userStatus=" + userStatus + "]";
 	}
 	

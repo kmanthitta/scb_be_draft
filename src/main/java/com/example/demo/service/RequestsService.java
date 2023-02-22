@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.ActiveAccesses;
+import com.example.demo.entity.DomainManagerInformation;
 import com.example.demo.entity.Requests;
 import com.example.demo.repository.ActiveAccessesRepository;
+import com.example.demo.repository.DomainManagerInformationRepository;
 import com.example.demo.repository.RequestsRepository;
 
 @Service
@@ -22,6 +24,9 @@ public class RequestsService {
 
 	@Autowired
 	ActiveAccessesRepository activeAccRepo;
+
+	@Autowired
+	DomainManagerInformationRepository dmRepo;
 
 	@Autowired
 	ActiveAccessesService activeAccSer;
@@ -65,9 +70,9 @@ public class RequestsService {
 		ArrayList<Map<String, Object>> requests = new ArrayList<Map<String, Object>>();
 		requests.add(buildSingleRequest("Role", acc.get(0).getRole(), "Delete"));
 		requests.add(buildSingleRequest("Location", acc.get(0).getLocation(), "Delete"));
-		requests.add(buildSingleRequest("SAS Viya", acc.get(0).getSas_viya(), "Delete"));
+		requests.add(buildSingleRequest("SAS Viya", acc.get(0).getSasViya(), "Delete"));
 		for (int i = 0; i < count; i++) {
-			requests.add(buildSingleRequest("Group", acc.get(i).getGroup_name(), "Delete"));
+			requests.add(buildSingleRequest("Group", acc.get(i).getGroupName(), "Delete"));
 		}
 		map.put("requests", requests);
 		generateRequest(map);
@@ -85,8 +90,13 @@ public class RequestsService {
 	public void generateRequest(Map<String, Object> payload) {
 		Integer count = ((List<Map<String, Object>>) payload.get("requests")).size();
 		Integer masterId = getUserReqCount((String) payload.get("bankId")) + 1;
+		DomainManagerInformation dm = null;
 		ArrayList<Map<String, Object>> req = (ArrayList<Map<String, Object>>) payload.get("requests");
-		// findDM()
+		for (Map<String, Object> request : req) {
+			if (String.valueOf(request.get("type")) == "Group") {
+				dm = dmRepo.getDomainManager(String.valueOf(request.get("type")));
+			}
+		}
 		for (int i = 0; i < count; i++) {
 			Requests r = new Requests();
 			r.setBankId(String.valueOf(payload.get("bankId")));
@@ -129,11 +139,23 @@ public class RequestsService {
 		// mailLM()
 	}
 
-	public List<Requests> getRequests(String email, String category) {
+	public List<Map<String, Object>> getRequests(String email, String category) {
 		List<Requests> obj = new ArrayList<Requests>();
+		List<Map<String, Object>> reqList = new ArrayList<>();
 		switch (category) {
 		case "lineManager":
 			obj = repo.findOpenRequestsForLM(email);
+			for (Requests req : obj) {
+				Map<String, Object> request = new HashMap<>();
+				request.put("id", req.getRowId());
+				request.put("bankId", req.getBankId());
+				request.put("name", req.getName());
+				request.put("requestDate", req.getRequestDate());
+				request.put("type", req.getRequestType());
+				request.put("action", req.getRequestAction());
+				request.put("value", req.getRequestValue());
+				reqList.add(request);
+			}
 			break;
 		case "domainManager":
 			obj = repo.findOpenRequestsForDM(email);
@@ -142,8 +164,7 @@ public class RequestsService {
 			obj = repo.findOpenRequestsForAdmin(email);
 			break;
 		}
-		System.out.println(obj);
-		return obj;
+		return reqList;
 	}
 
 	public List<Requests> getOpenRequests(String bankId) {
