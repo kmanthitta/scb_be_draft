@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -159,16 +160,121 @@ public class RequestsService {
 			break;
 		case "domainManager":
 			obj = repo.findOpenRequestsForDM(email);
+			for (Requests req : obj) {
+				Map<String, Object> request = new HashMap<>();
+				request.put("id", req.getRowId());
+				request.put("bankId", req.getBankId());
+				request.put("name", req.getName());
+				request.put("requestDate", req.getRequestDate());
+				request.put("type", req.getRequestType());
+				request.put("action", req.getRequestAction());
+				request.put("value", req.getRequestValue());
+				request.put("lmApprovedDate", req.getLineManagerApprovedDate());
+				reqList.add(request);
+			}
 			break;
 		case "admin":
 			obj = repo.findOpenRequestsForAdmin(email);
+			for (Requests req : obj) {
+				Map<String, Object> request = new HashMap<>();
+				request.put("id", req.getRowId());
+				request.put("bankId", req.getBankId());
+				request.put("name", req.getName());
+				request.put("requestDate", req.getRequestDate());
+				request.put("type", req.getRequestType());
+				request.put("action", req.getRequestAction());
+				request.put("value", req.getRequestValue());
+				request.put("lmApprovedDate", req.getLineManagerApprovedDate());
+				request.put("dmApprovedDate", req.getDomainManagerApprovedDate());
+				reqList.add(request);
+			}
 			break;
 		}
 		return reqList;
 	}
 
-	public List<Requests> getOpenRequests(String bankId) {
-		return repo.findOpenRequests(bankId);
+	public List<Map<String, Object>> getOpenRequests(String bankId) {
+		List<Requests> obj = new ArrayList<Requests>();
+		List<Map<String, Object>> reqList = new ArrayList<>();
+		obj = repo.findOpenRequests(bankId);
+		for (Requests req : obj) {
+			Map<String, Object> request = new HashMap<>();
+			request.put("requestDate", req.getRequestDate());
+			request.put("type", req.getRequestType());
+			request.put("action", req.getRequestAction());
+			request.put("value", req.getRequestValue());
+			Map<String, Map<String, Object>> allStatus = new HashMap<>();
+			Map<String, Object> lmStatus = buildStatusObject("LM", req);
+			Map<String, Object> dmStatus = buildStatusObject("DM", req);
+			Map<String, Object> sasStatus = buildStatusObject("SAS", req);
+			Map<String, Object> nasStatus = buildStatusObject("NAS", req);
+			Map<String, Object> bitbucketStatus = buildStatusObject("BB", req);
+			allStatus.put("LM", lmStatus);
+			allStatus.put("DM", dmStatus);
+			allStatus.put("SAS", sasStatus);
+			allStatus.put("NAS", nasStatus);
+			allStatus.put("BB", bitbucketStatus);
+			request.put("allStatuses", allStatus);
+			reqList.add(request);
+		}
+		return reqList;
+	}
+
+	public Map<String, Object> buildStatusObject(String category, Requests req) {
+		Map<String, Object> status = new HashMap<>();
+		switch (category) {
+		case "LM":
+			if (Objects.nonNull(req.getLineManagerEmail())) {
+				status.put("email", req.getLineManagerEmail());
+				status.put("status", req.getLineManagerApprovalStatus());
+				status.put("approvedDate", req.getLineManagerApprovedDate());
+				status.put("comments", req.getLineManagerComments());
+			} else {
+				status = null;
+			}
+			break;
+		case "DM":
+			if (Objects.nonNull(req.getDomainManagerEmail())) {
+				status.put("email", req.getDomainManagerEmail());
+				status.put("status", req.getDomainManagerApprovalStatus());
+				status.put("approvedDate", req.getDomainManagerApprovedDate());
+				status.put("comments", req.getDomainManagerComments());
+			} else {
+				status = null;
+			}
+			break;
+		case "SAS":
+			if (Objects.nonNull(req.getSasAdminEmail())) {
+				status.put("email", req.getSasAdminEmail());
+				status.put("status", req.getSasAdminApprovalStatus());
+				status.put("approvedDate", req.getSasAdminApprovedDate());
+				status.put("comments", req.getSasAdminComments());
+			} else {
+				status = null;
+			}
+			break;
+		case "NAS":
+			if (Objects.nonNull(req.getNasAdminEmail())) {
+				status.put("email", req.getNasAdminEmail());
+				status.put("status", req.getNasAdminApprovalStatus());
+				status.put("approvedDate", req.getNasAdminApprovedDate());
+				status.put("comments", req.getNasAdminComments());
+			} else {
+				status = null;
+			}
+			break;
+		case "BB":
+			if (Objects.nonNull(req.getBitbucketAdminEmail())) {
+				status.put("email", req.getBitbucketAdminEmail());
+				status.put("status", req.getBitbucketAdminApprovalStatus());
+				status.put("approvedDate", req.getBitbucketAdminApprovedDate());
+				status.put("comments", req.getBitbucketAdminComments());
+			} else {
+				status = null;
+			}
+			break;
+		}
+		return status;
 	}
 
 	public List<Requests> getClosedRequests(String bankId) {

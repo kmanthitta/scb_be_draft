@@ -45,12 +45,12 @@ public class RequestsController {
 	}
 
 	@GetMapping("/getRequests")
-	public List<Requests> getRequests(@RequestParam String email, @RequestParam String category) {
+	public List<Map<String, Object>> getRequests(@RequestParam String email, @RequestParam String category) {
 		return reqService.getRequests(email, category);
 	}
 
 	@GetMapping("/getOpenRequests")
-	public List<Requests> getOpenRequests(@RequestParam String bankId) {
+	public List<Map<String, Object>> getOpenRequests(@RequestParam String bankId) {
 		return reqService.getOpenRequests(bankId);
 	}
 
