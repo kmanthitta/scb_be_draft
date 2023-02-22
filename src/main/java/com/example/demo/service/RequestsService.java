@@ -25,7 +25,7 @@ public class RequestsService {
 
 	@Autowired
 	ActiveAccessesService activeAccSer;
-	
+
 	@Autowired
 	DomainManagerInformationService domainManSer;
 
@@ -37,8 +37,8 @@ public class RequestsService {
 
 	@Value("${sasAdminMail}")
 	private String sasAdminMail;
-	
-	public List<String> getDomains(){
+
+	public List<String> getDomains() {
 		return domainManSer.getDomains();
 	}
 
@@ -89,24 +89,24 @@ public class RequestsService {
 		// findDM()
 		for (int i = 0; i < count; i++) {
 			Requests r = new Requests();
-			r.setBankId((String) payload.get("bankId"));
-			r.setName((String) payload.get("name"));
+			r.setBankId(String.valueOf(payload.get("bankId")));
+			r.setName(String.valueOf(payload.get("name")));
 			r.setRequestDate(new Date());
 			r.setRequestId(masterId);
 			r.setRequestItemId(i + 1);
-			r.setRequestType((String) req.get(i).get("type"));
-			r.setRequestAction((String) req.get(i).get("action"));
-			r.setRequestValue((String) req.get(i).get("value"));
-			r.setLineManagerEmail((String) payload.get("LMemail"));
+			r.setRequestType(String.valueOf(req.get(i).get("type")));
+			r.setRequestAction(String.valueOf(req.get(i).get("action")));
+			r.setRequestValue(String.valueOf(req.get(i).get("value")));
+			r.setLineManagerEmail(String.valueOf(payload.get("LMemail")));
 			r.setLineManagerApprovalStatus("PENDING");
 			r.setLineManagerApprovedDate(null);
 			r.setLineManagerComments(null);
-			r.setDomainManagerEmail((String) payload.get("DMemail"));
+			r.setDomainManagerEmail(String.valueOf(payload.get("DMemail")));
 			r.setDomainManagerApprovalStatus("PENDING");
 			r.setDomainManagerApprovedDate(null);
 			r.setDomainManagerComments(null);
 			r.setStatus("UNDER APPROVAL");
-			switch ((String) req.get(i).get("type")) {
+			switch (String.valueOf(req.get(i).get("type"))) {
 			case "Group":
 				r.setNasAdminEmail(nasAdminMail);
 				r.setNasAdminApprovalStatus("PENDING");
@@ -145,7 +145,7 @@ public class RequestsService {
 		System.out.println(obj);
 		return obj;
 	}
-	
+
 	public List<Requests> getOpenRequests(String bankId) {
 		return repo.findOpenRequests(bankId);
 	}
@@ -165,16 +165,16 @@ public class RequestsService {
 
 	@SuppressWarnings("unchecked")
 	public void approveRequest(Map<String, Object> payload) {
-		String type = (String) payload.get("type");
-		String email = (String) payload.get("email");
+		String type = String.valueOf(payload.get("type"));
+		String email = String.valueOf(payload.get("email"));
 		ArrayList<Map<String, Object>> requestIDs = (ArrayList<Map<String, Object>>) payload.get("requestIDs");
 		switch (type) {
 		case "LM":
 			for (Map<String, Object> req : requestIDs) {
 				Requests r = repo.findByRowId((Integer) req.get("id"));
-				r.setLineManagerComments((String) req.get("comments"));
-				r.setLineManagerApprovalStatus((String) req.get("action"));
-				if ((String) req.get("action") == "REJECTED") {
+				r.setLineManagerComments(String.valueOf(req.get("comments")));
+				r.setLineManagerApprovalStatus(String.valueOf(req.get("action")));
+				if (String.valueOf(req.get("action")) == "REJECTED") {
 					r.setStatus("REJECTED");
 				}
 				r.setLineManagerApprovedDate(new Date());
@@ -186,9 +186,9 @@ public class RequestsService {
 		case "DM":
 			for (Map<String, Object> req : requestIDs) {
 				Requests r = repo.findByRowId((Integer) req.get("id"));
-				r.setDomainManagerComments((String) req.get("comments"));
-				r.setDomainManagerApprovalStatus((String) req.get("action"));
-				if ((String) req.get("action") == "REJECTED") {
+				r.setDomainManagerComments(String.valueOf(req.get("comments")));
+				r.setDomainManagerApprovalStatus(String.valueOf(req.get("action")));
+				if (String.valueOf(req.get("action")) == "REJECTED") {
 					r.setStatus("REJECTED");
 				}
 				r.setDomainManagerApprovedDate(new Date());
@@ -210,8 +210,8 @@ public class RequestsService {
 			case "SAS":
 				for (Map<String, Object> req : requestIDs) {
 					Requests r = repo.findByRowId((Integer) req.get("id"));
-					r.setSasAdminComments((String) req.get("comments"));
-					r.setSasAdminApprovalStatus((String) req.get("action"));
+					r.setSasAdminComments(String.valueOf(req.get("comments")));
+					r.setSasAdminApprovalStatus(String.valueOf(req.get("action")));
 					r.setSasAdminApprovedDate(new Date());
 					repo.save(r);
 				}
@@ -220,8 +220,8 @@ public class RequestsService {
 			case "NAS":
 				for (Map<String, Object> req : requestIDs) {
 					Requests r = repo.findByRowId((Integer) req.get("id"));
-					r.setNasAdminComments((String) req.get("comments"));
-					r.setNasAdminApprovalStatus((String) req.get("action"));
+					r.setNasAdminComments(String.valueOf(req.get("comments")));
+					r.setNasAdminApprovalStatus(String.valueOf(req.get("action")));
 					r.setNasAdminApprovedDate(new Date());
 					repo.save(r);
 				}
@@ -230,8 +230,8 @@ public class RequestsService {
 			case "BB":
 				for (Map<String, Object> req : requestIDs) {
 					Requests r = repo.findByRowId((Integer) req.get("id"));
-					r.setBitbucketAdminComments((String) req.get("comments"));
-					r.setBitbucketAdminApprovalStatus((String) req.get("action"));
+					r.setBitbucketAdminComments(String.valueOf(req.get("comments")));
+					r.setBitbucketAdminApprovalStatus(String.valueOf(req.get("action")));
 					r.setBitbucketAdminApprovedDate(new Date());
 					repo.save(r);
 				}
