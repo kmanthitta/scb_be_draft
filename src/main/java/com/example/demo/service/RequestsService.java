@@ -112,7 +112,7 @@ public class RequestsService {
 			r.setLineManagerApprovalStatus("PENDING");
 			r.setLineManagerApprovedDate(null);
 			r.setLineManagerComments(null);
-			r.setDomainManagerEmail(String.valueOf(payload.get("DMemail")));
+			r.setDomainManagerEmail(String.valueOf(dm.getEmail()));
 			r.setDomainManagerApprovalStatus("PENDING");
 			r.setDomainManagerApprovedDate(null);
 			r.setDomainManagerComments(null);
