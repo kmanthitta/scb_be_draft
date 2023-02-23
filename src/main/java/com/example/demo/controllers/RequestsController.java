@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.ActiveAccesses;
-import com.example.demo.entity.Requests;
+import com.example.demo.entity.UserActiveAccesses;
+import com.example.demo.entity.UserAccessRequests;
 import com.example.demo.service.ActiveAccessesService;
 import com.example.demo.service.RequestsService;
 
@@ -35,7 +35,7 @@ public class RequestsController {
 	}
 
 	@GetMapping("/getActiveAccesses")
-	public List<ActiveAccesses> getActiveAccesses(@RequestParam String bankId) {
+	public List<UserActiveAccesses> getActiveAccesses(@RequestParam String bankId) {
 		return accService.findActiveAccesses(bankId);
 	}
 
@@ -55,7 +55,7 @@ public class RequestsController {
 	}
 
 	@GetMapping("/getClosedRequests")
-	public List<Requests> getClosedRequests(@RequestParam String bankId) {
+	public List<UserAccessRequests> getClosedRequests(@RequestParam String bankId) {
 		return reqService.getClosedRequests(bankId);
 	}
 

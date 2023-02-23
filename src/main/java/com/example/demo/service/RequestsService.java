@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.ActiveAccesses;
+import com.example.demo.entity.UserActiveAccesses;
 import com.example.demo.entity.DomainManagerInformation;
-import com.example.demo.entity.Requests;
+import com.example.demo.entity.UserAccessRequests;
 import com.example.demo.repository.ActiveAccessesRepository;
 import com.example.demo.repository.DomainManagerInformationRepository;
 import com.example.demo.repository.RequestsRepository;
@@ -57,14 +58,14 @@ public class RequestsService {
 	}
 
 	public void deleteUser(String bankId) {
-		List<ActiveAccesses> accesses = activeAccSer.findActiveAccesses(bankId);
+		List<UserActiveAccesses> accesses = activeAccSer.findActiveAccesses(bankId);
 		buildRequestForDelete(accesses);
 	}
 
-	public void buildRequestForDelete(List<ActiveAccesses> acc) {
+	public void buildRequestForDelete(List<UserActiveAccesses> acc) {
 		Integer count = acc.size();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("bankId", acc.get(0).getBank_id());
+		map.put("bankId", acc.get(0).getBankId());
 		map.put("name", "just another name");
 		map.put("LMemail", acc.get(0).getLmEmail());
 		map.put("DMemail", acc.get(0).getDmEmail());
@@ -94,12 +95,12 @@ public class RequestsService {
 		DomainManagerInformation dm = null;
 		ArrayList<Map<String, Object>> req = (ArrayList<Map<String, Object>>) payload.get("requests");
 		for (Map<String, Object> request : req) {
-			if (String.valueOf(request.get("type")) == "Group") {
+			if (StringUtils.equalsIgnoreCase(String.valueOf(request.get("type")), "Group")) {
 				dm = dmRepo.getDomainManager(String.valueOf(request.get("type")));
 			}
 		}
 		for (int i = 0; i < count; i++) {
-			Requests r = new Requests();
+			UserAccessRequests r = new UserAccessRequests();
 			r.setBankId(String.valueOf(payload.get("bankId")));
 			r.setName(String.valueOf(payload.get("name")));
 			r.setRequestDate(new Date());
@@ -141,12 +142,12 @@ public class RequestsService {
 	}
 
 	public List<Map<String, Object>> getRequests(String email, String category) {
-		List<Requests> obj = new ArrayList<Requests>();
+		List<UserAccessRequests> obj = new ArrayList<UserAccessRequests>();
 		List<Map<String, Object>> reqList = new ArrayList<>();
 		switch (category) {
 		case "lineManager":
 			obj = repo.findOpenRequestsForLM(email);
-			for (Requests req : obj) {
+			for (UserAccessRequests req : obj) {
 				Map<String, Object> request = new HashMap<>();
 				request.put("id", req.getRowId());
 				request.put("bankId", req.getBankId());
@@ -160,7 +161,7 @@ public class RequestsService {
 			break;
 		case "domainManager":
 			obj = repo.findOpenRequestsForDM(email);
-			for (Requests req : obj) {
+			for (UserAccessRequests req : obj) {
 				Map<String, Object> request = new HashMap<>();
 				request.put("id", req.getRowId());
 				request.put("bankId", req.getBankId());
@@ -175,7 +176,7 @@ public class RequestsService {
 			break;
 		case "admin":
 			obj = repo.findOpenRequestsForAdmin(email);
-			for (Requests req : obj) {
+			for (UserAccessRequests req : obj) {
 				Map<String, Object> request = new HashMap<>();
 				request.put("id", req.getRowId());
 				request.put("bankId", req.getBankId());
@@ -194,10 +195,10 @@ public class RequestsService {
 	}
 
 	public List<Map<String, Object>> getOpenRequests(String bankId) {
-		List<Requests> obj = new ArrayList<Requests>();
+		List<UserAccessRequests> obj = new ArrayList<UserAccessRequests>();
 		List<Map<String, Object>> reqList = new ArrayList<>();
 		obj = repo.findOpenRequests(bankId);
-		for (Requests req : obj) {
+		for (UserAccessRequests req : obj) {
 			Map<String, Object> request = new HashMap<>();
 			request.put("requestDate", req.getRequestDate());
 			request.put("type", req.getRequestType());
@@ -220,7 +221,7 @@ public class RequestsService {
 		return reqList;
 	}
 
-	public Map<String, Object> buildStatusObject(String category, Requests req) {
+	public Map<String, Object> buildStatusObject(String category, UserAccessRequests req) {
 		Map<String, Object> status = new HashMap<>();
 		switch (category) {
 		case "LM":
@@ -277,13 +278,13 @@ public class RequestsService {
 		return status;
 	}
 
-	public List<Requests> getClosedRequests(String bankId) {
+	public List<UserAccessRequests> getClosedRequests(String bankId) {
 		return repo.findClosedRequests(bankId);
 	}
 
 	public Integer getUserReqCount(String bankId) {
 		Integer t = repo.getUserReqCount(bankId);
-		if (t == null) {
+		if (Objects.isNull(t)) {
 			return 0;
 		} else {
 			return t;
@@ -298,10 +299,10 @@ public class RequestsService {
 		switch (type) {
 		case "LM":
 			for (Map<String, Object> req : requestIDs) {
-				Requests r = repo.findByRowId((Integer) req.get("id"));
+				UserAccessRequests r = repo.findByRowId((Integer) req.get("id"));
 				r.setLineManagerComments(String.valueOf(req.get("comments")));
 				r.setLineManagerApprovalStatus(String.valueOf(req.get("action")));
-				if (String.valueOf(req.get("action")) == "REJECTED") {
+				if (StringUtils.equalsIgnoreCase(String.valueOf(req.get("action")), "REJECTED")) {
 					r.setStatus("REJECTED");
 				}
 				r.setLineManagerApprovedDate(new Date());
@@ -312,10 +313,10 @@ public class RequestsService {
 			break;
 		case "DM":
 			for (Map<String, Object> req : requestIDs) {
-				Requests r = repo.findByRowId((Integer) req.get("id"));
+				UserAccessRequests r = repo.findByRowId((Integer) req.get("id"));
 				r.setDomainManagerComments(String.valueOf(req.get("comments")));
 				r.setDomainManagerApprovalStatus(String.valueOf(req.get("action")));
-				if (String.valueOf(req.get("action")) == "REJECTED") {
+				if (StringUtils.equalsIgnoreCase(String.valueOf(req.get("action")), "REJECTED")) {
 					r.setStatus("REJECTED");
 				}
 				r.setDomainManagerApprovedDate(new Date());
@@ -326,9 +327,9 @@ public class RequestsService {
 			break;
 		case "Admin":
 			String admin = "";
-			if (email == nasAdminMail) {
+			if (StringUtils.equalsIgnoreCase(email, nasAdminMail)) {
 				admin = "NAS";
-			} else if (email == bbAdminMail) {
+			} else if (StringUtils.equalsIgnoreCase(email, bbAdminMail)) {
 				admin = "BB";
 			} else {
 				admin = "SAS";
@@ -336,7 +337,7 @@ public class RequestsService {
 			switch (admin) {
 			case "SAS":
 				for (Map<String, Object> req : requestIDs) {
-					Requests r = repo.findByRowId((Integer) req.get("id"));
+					UserAccessRequests r = repo.findByRowId((Integer) req.get("id"));
 					r.setSasAdminComments(String.valueOf(req.get("comments")));
 					r.setSasAdminApprovalStatus(String.valueOf(req.get("action")));
 					r.setSasAdminApprovedDate(new Date());
@@ -346,7 +347,7 @@ public class RequestsService {
 				break;
 			case "NAS":
 				for (Map<String, Object> req : requestIDs) {
-					Requests r = repo.findByRowId((Integer) req.get("id"));
+					UserAccessRequests r = repo.findByRowId((Integer) req.get("id"));
 					r.setNasAdminComments(String.valueOf(req.get("comments")));
 					r.setNasAdminApprovalStatus(String.valueOf(req.get("action")));
 					r.setNasAdminApprovedDate(new Date());
@@ -356,7 +357,7 @@ public class RequestsService {
 				break;
 			case "BB":
 				for (Map<String, Object> req : requestIDs) {
-					Requests r = repo.findByRowId((Integer) req.get("id"));
+					UserAccessRequests r = repo.findByRowId((Integer) req.get("id"));
 					r.setBitbucketAdminComments(String.valueOf(req.get("comments")));
 					r.setBitbucketAdminApprovalStatus(String.valueOf(req.get("action")));
 					r.setBitbucketAdminApprovedDate(new Date());

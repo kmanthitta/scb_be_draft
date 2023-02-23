@@ -10,7 +10,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-public class Requests {
+public class UserAccessRequests {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer rowId;

@@ -14,7 +14,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name="users_active_accesses")
-public class ActiveAccesses {
+public class UserActiveAccesses {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -24,7 +24,7 @@ public class ActiveAccesses {
 	@CreatedDate
 	@Temporal(TemporalType.DATE)
 	private Date updatedOn;
-	private String bank_id;
+	private String bankId;
 	private String email;
 	private String role;
 	private String location;
@@ -41,11 +41,11 @@ public class ActiveAccesses {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getBank_id() {
-		return bank_id;
+	public String getBankId() {
+		return bankId;
 	}
-	public void setBank_id(String bank_id) {
-		this.bank_id = bank_id;
+	public void setBank_id(String bankId) {
+		this.bankId = bankId;
 	}
 	public String getRole() {
 		return role;
@@ -116,8 +116,8 @@ public class ActiveAccesses {
 	
 	@Override
 	public String toString() {
-		return "ActiveAccesses [id=" + id + ", createdOn=" + createdOn + ", updatedOn=" + updatedOn + ", bank_id="
-				+ bank_id + ", email=" + email + ", role=" + role + ", location=" + location + ", groupName="
+		return "ActiveAccesses [id=" + id + ", createdOn=" + createdOn + ", updatedOn=" + updatedOn + ", bankId="
+				+ bankId + ", email=" + email + ", role=" + role + ", location=" + location + ", groupName="
 				+ groupName + ", sasViya=" + sasViya + ", lmEmail=" + lmEmail + ", dmEmail=" + dmEmail
 				+ ", groupStatus=" + groupStatus + ", userStatus=" + userStatus + "]";
 	}
