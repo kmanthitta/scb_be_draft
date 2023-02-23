@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.demo.entity.UserAccessRequests;
 
-public interface RequestsRepository extends JpaRepository<UserAccessRequests, Integer> {
+public interface UserAccessRequestsRepository extends JpaRepository<UserAccessRequests, Integer> {
 	public UserAccessRequests findByRowId(Integer rowId);
 
 	@Query(value = "SELECT max(request_id) FROM requests WHERE bank_id=:bankId", nativeQuery = true)

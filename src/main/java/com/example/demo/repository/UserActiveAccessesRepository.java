@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.demo.entity.UserActiveAccesses;
 
-public interface ActiveAccessesRepository extends JpaRepository<UserActiveAccesses, Integer> {
+public interface UserActiveAccessesRepository extends JpaRepository<UserActiveAccesses, Integer> {
 	@Query(value="SELECT * FROM users_active_accesses where bank_id=:bankId", nativeQuery = true)
 	public List<UserActiveAccesses> findActiveAccesses(String bankId);
 }

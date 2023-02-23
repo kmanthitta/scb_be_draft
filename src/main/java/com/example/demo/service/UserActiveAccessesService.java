@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.UserActiveAccesses;
-import com.example.demo.repository.ActiveAccessesRepository;
+import com.example.demo.repository.UserActiveAccessesRepository;
 
 @Service
-public class ActiveAccessesService {
+public class UserActiveAccessesService {
 	@Autowired
-	ActiveAccessesRepository repo;
+	UserActiveAccessesRepository repo;
 
 	public List<UserActiveAccesses> findActiveAccesses(String bankId) {
 		return repo.findActiveAccesses(bankId);

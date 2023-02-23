@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.UserActiveAccesses;
 import com.example.demo.entity.UserAccessRequests;
-import com.example.demo.service.ActiveAccessesService;
-import com.example.demo.service.RequestsService;
+import com.example.demo.service.UserActiveAccessesService;
+import com.example.demo.service.UserAccessRequestsService;
 
 @RestController
 public class RequestsController {
 
 	@Autowired
-	RequestsService reqService;
+	UserAccessRequestsService reqService;
 
 	@Autowired
-	ActiveAccessesService accService;
+	UserActiveAccessesService accService;
 
 	@PostMapping("/submitNewRequest")
 	public void submitNewRequest(@RequestBody Map<String, Object> payload) {

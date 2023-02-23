@@ -15,23 +15,23 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.UserActiveAccesses;
 import com.example.demo.entity.DomainManagerInformation;
 import com.example.demo.entity.UserAccessRequests;
-import com.example.demo.repository.ActiveAccessesRepository;
+import com.example.demo.repository.UserActiveAccessesRepository;
 import com.example.demo.repository.DomainManagerInformationRepository;
-import com.example.demo.repository.RequestsRepository;
+import com.example.demo.repository.UserAccessRequestsRepository;
 
 @Service
-public class RequestsService {
+public class UserAccessRequestsService {
 	@Autowired
-	RequestsRepository repo;
+	UserAccessRequestsRepository repo;
 
 	@Autowired
-	ActiveAccessesRepository activeAccRepo;
+	UserActiveAccessesRepository activeAccRepo;
 
 	@Autowired
 	DomainManagerInformationRepository dmRepo;
 
 	@Autowired
-	ActiveAccessesService activeAccSer;
+	UserActiveAccessesService activeAccSer;
 
 	@Autowired
 	DomainManagerInformationService domainManSer;
