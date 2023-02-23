@@ -11,18 +11,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.UserActiveAccesses;
+import com.example.demo.repository.LocationsRepository;
 import com.example.demo.entity.UserAccessRequests;
 import com.example.demo.service.UserActiveAccessesService;
 import com.example.demo.service.UserAccessRequestsService;
 
 @RestController
-public class RequestsController {
+public class UserAccessRequestsController {
 
 	@Autowired
 	UserAccessRequestsService reqService;
 
 	@Autowired
 	UserActiveAccessesService accService;
+
+	@Autowired
+	LocationsRepository locRepo;
 
 	@PostMapping("/submitNewRequest")
 	public void submitNewRequest(@RequestBody Map<String, Object> payload) {
@@ -67,5 +71,10 @@ public class RequestsController {
 	@GetMapping("/getDomains")
 	public List<String> getDomains() {
 		return reqService.getDomains();
+	}
+
+	@GetMapping("/getLocations")
+	public List<String> getLocations() {
+		return locRepo.getLocations();
 	}
 }

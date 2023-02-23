@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.UserActiveAccesses;
-import com.example.demo.entity.DomainManagerInformation;
+import com.example.demo.entity.DomainManagerInfo;
 import com.example.demo.entity.UserAccessRequests;
 import com.example.demo.repository.UserActiveAccessesRepository;
-import com.example.demo.repository.DomainManagerInformationRepository;
+import com.example.demo.repository.DomainManagerInfoRepository;
 import com.example.demo.repository.UserAccessRequestsRepository;
 
 @Service
@@ -28,13 +28,13 @@ public class UserAccessRequestsService {
 	UserActiveAccessesRepository activeAccRepo;
 
 	@Autowired
-	DomainManagerInformationRepository dmRepo;
+	DomainManagerInfoRepository dmRepo;
 
 	@Autowired
 	UserActiveAccessesService activeAccSer;
 
 	@Autowired
-	DomainManagerInformationService domainManSer;
+	DomainManagerInfoService domainManSer;
 
 	@Value("${nasAdminMail}")
 	private String nasAdminMail;
@@ -92,7 +92,7 @@ public class UserAccessRequestsService {
 	public void generateRequest(Map<String, Object> payload) {
 		Integer count = ((List<Map<String, Object>>) payload.get("requests")).size();
 		Integer masterId = getUserReqCount((String) payload.get("bankId")) + 1;
-		DomainManagerInformation dm = null;
+		DomainManagerInfo dm = null;
 		ArrayList<Map<String, Object>> req = (ArrayList<Map<String, Object>>) payload.get("requests");
 		for (Map<String, Object> request : req) {
 			if (StringUtils.equalsIgnoreCase(String.valueOf(request.get("type")), "Group")) {

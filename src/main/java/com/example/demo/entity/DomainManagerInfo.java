@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "domain_manager_information")
-public class DomainManagerInformation {
+public class DomainManagerInfo {
 	@Id
 	private String domainName;
 	private String bankId;

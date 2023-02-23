@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.repository.DomainManagerInformationRepository;
+import com.example.demo.repository.DomainManagerInfoRepository;
 
 @Service
-public class DomainManagerInformationService {
+public class DomainManagerInfoService {
 	
 	@Autowired
-	DomainManagerInformationRepository repo;
+	DomainManagerInfoRepository repo;
 	
 	public List<String> getDomains(){
 		return repo.getDomains();
